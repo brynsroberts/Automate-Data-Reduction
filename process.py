@@ -26,7 +26,7 @@ if __name__ == "__main__":
         input("Enter value which unknown sample average must be greater than: "))
 
     # make data frame from excel sheet and determine feature type
-    df = FeatureFilter.filter_excel(file_location)
+    df = FeatureFilter.filter_file(file_location)
     FeatureFilter.determine_feature_type(df)
 
     # find columns with matching names
