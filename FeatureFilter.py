@@ -21,7 +21,7 @@ def filter_file(file_location):
 
     """
 
-	# read in excel file and make data frame
+	# read in .txt file and make data frame
 	try:
 
 		data_frame = pd.read_csv(file_location, sep='\t', skiprows=4)
@@ -165,7 +165,7 @@ def add_reduction_columns(data_frame, blanks, samples):
 	data_frame['Sample stdev'] = sample_stdev
 	data_frame['%CV'] = sample_cv
 
-def create_to_be_processed_txt(internal_standards, knowns, unknowns, file_location):
+def create_to_be_processed_txt(internal_standards, knowns, unknowns, file_location, samples):
 	""" recombines reduced data-frames and creates .txt file to be put through ms-flo in current directory
 
 	Parameters:
@@ -173,6 +173,7 @@ def create_to_be_processed_txt(internal_standards, knowns, unknowns, file_locati
 		knowns (pandas data-frame): Only contains rows of type knowns
 		unknowns (pandas data-frame): Only contains rows of type unknowns
 		file_location (str): file location of original excel file to save feature reduced .txt file
+		samples (list): List of all study samples from row 1
 
 	Returns:
 		None
@@ -190,6 +191,29 @@ def create_to_be_processed_txt(internal_standards, knowns, unknowns, file_locati
 
 			to_be_processed.drop(column, axis=1, inplace=True)
 
-	to_be_processed_path = os.path.basename(file_location) + 'toBeProcessed.txt'
-
+	#create sample name to go in sample location as original .txt file put into the program
+	sample_information_name = extract_sample_information(samples)
+	to_be_processed_path = os.path.join(os.path.dirname(file_location), sample_information_name + '_toBeProcessed.txt')
+	
+	#save file as .txt for ms-flo analysis
 	to_be_processed.to_csv(to_be_processed_path, header=True, index=False, sep='\t', mode='a')
+	print(f"file save: {to_be_processed_path}")
+
+def extract_sample_information(samples):
+	""" extract client name, minix, and analysis type from first sample file name
+
+	Parameters:
+		samples (list): List of all study samples from row 1
+
+	Returns:
+		str in form of client_name + "_" + client_minix + "_" + analysis
+
+    """
+
+	first_sample = samples[0].split('_')
+	client_name = first_sample[0][0:len(first_sample[0]) - 3]
+	client_minix = first_sample[1]
+	analysis = first_sample[2]
+
+	return client_name + "_" + client_minix + "_" + analysis
+
