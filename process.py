@@ -2,9 +2,9 @@
 
 """ process.py: Reduces extraneous peaks from MS-Dial import and creates file for direct MS-Flo analysis"""
 
-__author__ =    "Bryan Roberts"
+__author__ = "Bryan Roberts"
 
-import FeatureFilter # local source
+import FeatureFilter  # local source
 
 if __name__ == "__main__":
 
@@ -53,4 +53,5 @@ if __name__ == "__main__":
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
 
     # create text file of all reduced feature for ms-flo analysis
-    FeatureFilter.create_to_be_processed_txt(internal_standards, knowns, unknowns, file_location, samples)
+    FeatureFilter.create_to_be_processed_txt(
+        internal_standards, knowns, unknowns, file_location, samples)
