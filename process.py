@@ -11,20 +11,27 @@ if __name__ == "__main__":
     # input file with full directory
     file_location = input("Enter full file directory including file: ")
 
+    # validate file location input
+    file_location = FeatureFilter.validate_file_location(file_location)
+    
     # fold2 for annotated compounds (sample_max/blank_average)
     known_fold2 = int(input("Enter known fold2 reduction: "))
+    assert (known_fold2 >= 0), "known fold2 must be greater than or equal to 0"
 
     # fold2 for unknown compounds (sample_max/blank_average)
     unknown_fold2 = int(input("Enter unknown fold2 reduction: "))
+    assert (unknown_fold2 >= 0), "unknown fold2 must be greater than or equal to 0"
 
     # annotated compounds should have a sample max greater than this value
     known_sample_max = int(
         input("Enter value which known sample max must be greater than: "))
+    assert(known_sample_max >= 0), "known sample max must be greater than or equal to 0"
 
     # unknown compounds should have a sample average greater than this value
     unknown_sample_average = int(
         input("Enter value which unknown sample average must be greater than: "))
-
+    assert(unknown_sample_average >= 0), "unknown sample average must be greater than or equal to 0"
+    
     # make data frame from excel sheet and determine feature type
     df = FeatureFilter.filter_file(file_location)
     FeatureFilter.determine_feature_type(df)

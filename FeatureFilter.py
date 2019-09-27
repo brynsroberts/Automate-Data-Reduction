@@ -20,16 +20,10 @@ def filter_file(file_location):
     Returns:
             data_frame (pandas data-frame): Currated data-frame containing peak heights for all samples and features
 
-"""
+    """
 
     # read in .txt file and make data frame
-    try:
-
-        data_frame = pd.read_csv(file_location, sep='\t', skiprows=4)
-
-    except BaseException:
-
-        print("File location failed")
+    data_frame = pd.read_csv(file_location, sep='\t', skiprows=4)
 
     # columns to keep for data currations
     columns_to_keep = [
@@ -73,7 +67,7 @@ def filter_samples(data_frame, blanks, biorecs, pools, samples):
     Returns:
             None
 
-"""
+    """
 
     for col in data_frame.columns[11:]:
 
@@ -103,7 +97,7 @@ def determine_feature_type(data_frame):
     Returns:
             None
 
-"""
+    """
 
     feature_type = []
 
@@ -135,7 +129,7 @@ def add_reduction_columns(data_frame, blanks, samples):
     Returns:
             None
 
-"""
+    """
 
     blank_values = []
     blank_average = []
@@ -195,7 +189,7 @@ def create_to_be_processed_txt(
     Returns:
             None
 
-"""
+    """
 
     to_be_processed = pd.concat([internal_standards, knowns, unknowns])
 
@@ -240,7 +234,7 @@ def extract_sample_information(samples):
     Returns:
             str in form of client_name + "_" + client_minix + "_" + analysis
 
-"""
+    """
 
     first_sample = samples[0].split('_')
     client_name = first_sample[0][0:len(first_sample[0]) - 3]
@@ -248,3 +242,28 @@ def extract_sample_information(samples):
     analysis = first_sample[2]
 
     return client_name + "_" + client_minix + "_" + analysis
+
+def validate_file_location(file_location):
+    """ validates file location exists and delete quotation marks if user copied them into string
+
+    Parameters:
+            file_location (list): Full directory path of file to be analyzed
+
+    Returns:
+            file_location (str): Full directory path of file to be analyzed
+
+    """
+
+    # if user pastes file location with quotation marks, delete quotation marks
+    if file_location[0] == "\"":
+
+        file_location = file_location[1:len(file_location)-1]
+
+    assert (os.path.isfile(file_location)), "File location invalid"
+    
+    return file_location
+
+
+        
+        
+
