@@ -215,6 +215,9 @@ def create_to_be_processed_txt(
         sample_information_name +
         '_toBeProcessed.txt')
 
+    # make sure to_be_processed file does not already exist
+    assert(not os.path.exists(to_be_processed_path)), f"{to_be_processed_path} already exists"
+
     # save file as .txt for ms-flo analysis
     to_be_processed.to_csv(
         to_be_processed_path,
