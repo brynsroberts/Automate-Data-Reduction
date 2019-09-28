@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-""" msflo.py: Puts reduced dataset through Fiehn lab ms-flo web service"""
+""" msflo.py: Puts reduced dataset through Fiehn lab ms-flo web service """
 
 __author__ = "Bryan Roberts"
 
@@ -22,8 +22,12 @@ def msflo(file_path):
 
     """
 
+    CHROME_DRIVER_DIRECTORY = "/Users/newuser/Desktop/chromedriver"
+    DOWNLOADS_DIRECTORY = "/Users/newuser/Downloads"
+
+    # open ms-flo in chrome browser
     browser = webdriver.Chrome(
-        executable_path="/Users/newuser/Desktop/chromedriver")
+        executable_path=CHROME_DRIVER_DIRECTORY)
     browser.get("https://msflo.fiehnlab.ucdavis.edu/#/submit")
 
     # select ms-dial button
@@ -64,8 +68,10 @@ def msflo(file_path):
         "/html/body/div/div/form/div[5]/div[13]/input")
     isotope_match.send_keys('0.7')
 
-    # create
-    download_file_path = create_download_file_path(file_path, "/Users/newuser/Downloads")
+    # create download file path with ms-flo created filename concatenated onto
+    # folder directory
+    download_file_path = create_download_file_path(
+        file_path, DOWNLOADS_DIRECTORY)
 
     # click submit button
     submit_button = browser.find_element_by_xpath(
@@ -77,6 +83,7 @@ def msflo(file_path):
 
     # unzip downloaded file and send to original filepath
     unzip_msflo_file(download_file_path, os.path.dirname(file_path))
+    print(f"ms-flo output in: {os.path.dirname(file_path)}")
 
 
 def wait_for_downloads(final_download_file_path):
@@ -94,6 +101,7 @@ def wait_for_downloads(final_download_file_path):
     while not os.path.exists(final_download_file_path):
         time.sleep(1)
 
+
 def unzip_msflo_file(download_file_path, send_to_file_path):
     """ unzips files and puts them in directory of original file
 
@@ -108,6 +116,7 @@ def unzip_msflo_file(download_file_path, send_to_file_path):
 
     with zipfile.ZipFile(download_file_path, 'r') as zip_ref:
         zip_ref.extractall(send_to_file_path)
+
 
 def create_download_file_path(file_path, download_file_path):
     """ creates filepath in downloads directory with correct file name concatenated
@@ -132,6 +141,7 @@ def create_download_file_path(file_path, download_file_path):
     final_download_path = os.path.join(download_file_path, file_name_zip)
 
     # make sure file path is valid
-    assert(not os.path.exists(final_download_path)), f"{final_download_path} already exists"
-    
+    assert(not os.path.exists(final_download_path)
+           ), f"{final_download_path} already exists"
+
     return final_download_path

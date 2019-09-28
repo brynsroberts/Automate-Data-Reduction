@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-""" reduce.py: Functions to import raw MS-Dial export into pandas data-frame and reduce the total number of features"""
+""" reduce.py: Functions to import raw MS-Dial export into pandas data-frame and reduce the total number of features """
 
 __author__ = "Bryan Roberts"
 
@@ -216,7 +216,8 @@ def create_to_be_processed_txt(
         '_toBeProcessed.txt')
 
     # make sure to_be_processed file does not already exist
-    assert(not os.path.exists(to_be_processed_path)), f"{to_be_processed_path} already exists"
+    assert(not os.path.exists(to_be_processed_path)
+           ), f"{to_be_processed_path} already exists"
 
     # save file as .txt for ms-flo analysis
     to_be_processed.to_csv(

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-""" process.py: Reduces extraneous peaks from MS-Dial import and creates file for direct MS-Flo analysis"""
+""" process.py: Reduces extraneous peaks from MS-Dial import and creates file for direct MS-Flo analysis """
 
 __author__ = "Bryan Roberts"
 
-import FeatureFilter  # local source
+import reduce  # local source
 from msflo import msflo
 
 if __name__ == "__main__":
@@ -13,7 +13,7 @@ if __name__ == "__main__":
     file_location = input("Enter full file directory including file: ")
 
     # validate file location input
-    file_location = FeatureFilter.validate_file_location(file_location)
+    file_location = reduce.validate_file_location(file_location)
 
     # fold2 for annotated compounds (sample_max/blank_average)
     known_fold2 = int(input("Enter known fold2 reduction: "))
@@ -36,18 +36,18 @@ if __name__ == "__main__":
            0), "unknown sample average must be greater than or equal to 0"
 
     # make data frame from excel sheet and determine feature type
-    df = FeatureFilter.filter_file(file_location)
-    FeatureFilter.determine_feature_type(df)
+    df = reduce.filter_file(file_location)
+    reduce.determine_feature_type(df)
 
     # find columns with matching names
     blanks = []
     biorecs = []
     pools = []
     samples = []
-    FeatureFilter.filter_samples(df, blanks, biorecs, pools, samples)
+    reduce.filter_samples(df, blanks, biorecs, pools, samples)
 
     # add reduction columns
-    FeatureFilter.add_reduction_columns(df, blanks, samples)
+    reduce.add_reduction_columns(df, blanks, samples)
 
     # create data frame for each type of annotated feature
     internal_standards = df[(df['Type'] == 'iSTD')]
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
 
     # create text file of all reduced feature for ms-flo analysis
-    file_path = FeatureFilter.create_to_be_processed_txt(
+    file_path = reduce.create_to_be_processed_txt(
         internal_standards, knowns, unknowns, file_location, samples)
 
     # perform online ms-flo analysis
