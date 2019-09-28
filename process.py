@@ -5,6 +5,7 @@
 __author__ = "Bryan Roberts"
 
 import FeatureFilter  # local source
+from msflo import msflo
 
 if __name__ == "__main__":
 
@@ -60,5 +61,8 @@ if __name__ == "__main__":
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
 
     # create text file of all reduced feature for ms-flo analysis
-    FeatureFilter.create_to_be_processed_txt(
+    file_path = FeatureFilter.create_to_be_processed_txt(
         internal_standards, knowns, unknowns, file_location, samples)
+
+    # perform online ms-flo analysis
+    msflo(file_path)

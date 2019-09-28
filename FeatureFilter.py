@@ -222,7 +222,11 @@ def create_to_be_processed_txt(
         index=False,
         sep='\t',
         mode='a')
+    
     print(f"file save: {to_be_processed_path}")
+
+    return to_be_processed_path
+    
 
 
 def extract_sample_information(samples):
