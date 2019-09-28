@@ -227,7 +227,7 @@ def create_to_be_processed_txt(
         sep='\t',
         mode='a')
 
-    print(f"file save: {to_be_processed_path}")
+    print(f"file saved: {to_be_processed_path}")
 
     return to_be_processed_path
 

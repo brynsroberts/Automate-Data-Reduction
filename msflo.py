@@ -83,7 +83,7 @@ def msflo(file_path):
 
     # unzip downloaded file and send to original filepath
     unzip_msflo_file(download_file_path, os.path.dirname(file_path))
-    print(f"ms-flo output in: {os.path.dirname(file_path)}")
+    print(f"ms-flo complete: {os.path.dirname(file_path)}")
 
 
 def wait_for_downloads(final_download_file_path):
