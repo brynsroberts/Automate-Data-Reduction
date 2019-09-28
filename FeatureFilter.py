@@ -222,11 +222,10 @@ def create_to_be_processed_txt(
         index=False,
         sep='\t',
         mode='a')
-    
+
     print(f"file save: {to_be_processed_path}")
 
     return to_be_processed_path
-    
 
 
 def extract_sample_information(samples):
@@ -247,6 +246,7 @@ def extract_sample_information(samples):
 
     return client_name + "_" + client_minix + "_" + analysis
 
+
 def validate_file_location(file_location):
     """ validates file location exists and delete quotation marks if user copied them into string
 
@@ -261,13 +261,8 @@ def validate_file_location(file_location):
     # if user pastes file location with quotation marks, delete quotation marks
     if file_location[0] == "\"":
 
-        file_location = file_location[1:len(file_location)-1]
+        file_location = file_location[1:len(file_location) - 1]
 
     assert (os.path.isfile(file_location)), "File location invalid"
-    
+
     return file_location
-
-
-        
-        
-
