@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-""" FeatureFilter.py: Functions to import raw MS-Dial export into pandas data-frame and reduce the total number of features"""
+""" reduce.py: Functions to import raw MS-Dial export into pandas data-frame and reduce the total number of features"""
 
 __author__ = "Bryan Roberts"
 
