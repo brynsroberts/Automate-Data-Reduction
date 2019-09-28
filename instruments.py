@@ -6,6 +6,15 @@ __author__ = "Bryan Roberts"
 
 
 def user_specified_values():
+    """ allows user to choose default values or input values for reduction
+
+    Parameters:
+            None
+
+    Returns:
+            bool: True is user defined values, False if default values
+
+    """
 
     while(True):
         print("Select an option for data reduction: ")
@@ -21,6 +30,15 @@ def user_specified_values():
 
 
 def choose_instrument():
+    """ allows user to choose instrument default values
+
+    Parameters:
+            None
+
+    Returns:
+            bool: True is data is QTOF or TTOF, False if data is QEHF
+
+    """
 
     while(True):
         print("Select an instrument: ")
