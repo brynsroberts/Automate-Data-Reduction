@@ -25,6 +25,12 @@ def filter_file(file_location):
     # read in .txt file and make data frame
     data_frame = pd.read_csv(file_location, sep='\t', skiprows=4)
 
+    # find row right before first samples
+    msms_column = 1
+    while (data_frame.columns[msms_column] != "MS/MS spectrum"):
+
+            msms_column += 1
+
     # columns to keep for data currations
     columns_to_keep = [
         "Average Rt(min)",
@@ -38,7 +44,7 @@ def filter_file(file_location):
         "Spectrum reference file name"]
 
     # delete columns not needed for data curration
-    for column in data_frame.columns[1: 28]:
+    for column in data_frame.columns[1: msms_column + 1]:
 
         if column not in columns_to_keep:
 
