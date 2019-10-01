@@ -10,19 +10,11 @@ Automates data reduction for Metabolomics untargeted LC-MS data and puts reduced
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-The following modules are used:
-
-* import os
-* import time
-* import zipfile
-* from selenium import webdriver
-* from selenium.webdriver.chrome.options import Optionsimport numpy as np
-* import pandas as pd
-* from statistics import stdev
+A command-line runner is provided for integration into a local processing workflow. This program requires python 3 and its dependencies may be installed using pip install -r requirements.txt.
 
 ## Sources
 
