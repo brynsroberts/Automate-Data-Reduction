@@ -36,7 +36,13 @@ Also in msflo.py, paste the full directory of local Downloads folder in DOWNLOAD
 DOWNLOADS_DIRECTORY = "C:\\Users\\Bryan\\Downloads"
 ```
 
-Sample names in MS-Dial must be in the following format
+Sample names must be generated from
+
+```
+http://carrot.metabolomics.us/lcms
+```
+
+Sample names must match the following format
 
 ```
 Sample name and injection number _ MiniX ID _ Analysis Type _ Sample ID - Sample Number
