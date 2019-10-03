@@ -45,9 +45,9 @@ http://carrot.metabolomics.us/lcms
 * Sample names must match the following format
 
 ```
-Sample name and injection number _ MiniX ID _ Analysis Type _ Sample ID - Sample Number
+* Sample name and injection number _ MiniX ID _ Analysis Type _ Sample ID - Sample Number
 
-Bryan001_MX123456_posHILIC_ABA-01
+* ex: Bryan001_MX123456_posHILIC_ABA-01
 ```
 
 ### Runing Script
@@ -63,10 +63,10 @@ Enter full file directory including file: "C:\Data\Height_0_20198231532.txt"
 * Select to use default values or user defined parameters for data reduction.  Parameters include
 
 ```
-known fold 2: sample max peak height for all samples / blank average peak height for all blanks (defualt: 5)
-unknown fold 2: sample max peak height for all samples / blank average peak height for all blanks (defualt: 5)
-Enter value which known sample max must be greater than: (default for QTOF/TTOF: 1000, QEHF: 10000)
-Enter value which unknown sample average must be greater than: (default for QTOF/TTOF: 3000, QEHF: 50000)
+* known fold 2: sample max peak height for all samples / blank average peak height for all blanks (defualt: 5)
+* unknown fold 2: sample max peak height for all samples / blank average peak height for all blanks (defualt: 5)
+* Enter value which known sample max must be greater than: (default for QTOF/TTOF: 1000, QEHF: 10000)
+* Enter value which unknown sample average must be greater than: (default for QTOF/TTOF: 3000, QEHF: 50000)
 ```
 ### Output
 
