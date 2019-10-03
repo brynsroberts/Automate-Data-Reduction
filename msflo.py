@@ -55,15 +55,19 @@ def msflo(file_path):
         "/html/body/div/div/form/div[5]/div[8]/input")
     dup_peak_height.send_keys('500')
 
+    dup_rt_tolerance = browser.find_element_by_xpath(
+        "/html/body/div/div/form/div[5]/div[7]/input")
+    dup_rt_tolerance.send_keys('0.005')
+
+    dup_mz_tolerance = browser.find_element_by_xpath(
+        "/html/body/div/div/form/div[5]/div[6]/input")
+    dup_mz_tolerance.send_keys('0.05')
+
+    dup_min_peak_match_ratio = browser.find_element_by_xpath(
+        "/html/body/div/div/form/div[5]/div[9]/input")
+    dup_min_peak_match_ratio.send_keys('0.7')
+
     # update isotope form
-    isotope_mz_tolerance = browser.find_element_by_xpath(
-        "/html/body/div/div/form/div[5]/div[11]/input")
-    isotope_mz_tolerance.send_keys('0.005')
-
-    isotope_rt_tolerance = browser.find_element_by_xpath(
-        "/html/body/div/div/form/div[5]/div[12]/input")
-    isotope_rt_tolerance.send_keys('0.01')
-
     isotope_match = browser.find_element_by_xpath(
         "/html/body/div/div/form/div[5]/div[13]/input")
     isotope_match.send_keys('0.7')
