@@ -71,10 +71,11 @@ Enter full file directory including file: "C:\Data\Height_0_20198231532.txt"
 ```
 ### Output
 
-* Script will create new reduced and toBeProcessed .txt file and MS-FLO files in same directory as original MS-Dial alignment file.
-* Chart displaying number of known and unknown features before and after reduction
-* Chart displaying %CV of internal standards in samples and pool qc samples
-* Chart displaying %CV of known features in samples and pool qc samples
+* New reduced and toBeProcessed .txt files
+* MS-FLO output files
+* Table displaying number of known and unknown features before and after reduction
+* Table displaying %CV of internal standards in samples and pool qc samples
+* Table displaying %CV of known features in samples and pool qc samples
 
 ## Sources
 
