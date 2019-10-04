@@ -29,7 +29,7 @@ def filter_file(file_location):
     msms_column = 1
     while (data_frame.columns[msms_column] != "MS/MS spectrum"):
 
-            msms_column += 1
+        msms_column += 1
 
     # columns to keep for data currations
     columns_to_keep = [
@@ -124,7 +124,7 @@ def determine_feature_type(data_frame):
     data_frame.insert(2, 'Type', feature_type)
 
 
-def add_reduction_columns(data_frame, blanks, samples):
+def add_reduction_columns(data_frame, blanks, samples, pools):
     """ Add blank average, sample averae, sample max, sample stdev, and sample %cv columns to data-frame
 
     Parameters:
@@ -137,16 +137,21 @@ def add_reduction_columns(data_frame, blanks, samples):
 
     """
 
+    # lists for calculations to add to data frame
     blank_values = []
     blank_average = []
-
     sample_values = []
     sample_max = []
     sample_avg = []
     sample_stdev = []
     sample_cv = []
     fold2 = []
+    pool_values = []
+    pool_avg = []
+    pool_stdev = []
+    pool_cv = []
 
+    # add needed information to above lists
     for i in range(0, len(data_frame.index)):
 
         for col in data_frame.columns[11:]:
@@ -159,22 +164,51 @@ def add_reduction_columns(data_frame, blanks, samples):
 
                 sample_values.append(data_frame.at[i, col])
 
+            elif col in pools:
+
+                pool_values.append(data_frame.at[i, col])
+
+        # blank average column
         blank_average.append(sum(blank_values) / len(blank_values))
+
+        # sample max column
         sample_max.append(max(sample_values))
+
+        # sample average column
         sample_avg.append(sum(sample_values) / len(sample_values))
+
+        # sample stdev column
         sample_stdev.append(stdev(sample_values))
-        sample_cv.append((sample_stdev[i - 1] / sample_avg[i - 1]) * 100)
+
+        # sample %CV columns
+        sample_cv.append(round((sample_stdev[i] / sample_avg[i]) * 100, 2))
+
+        # Fold 2 column
         fold2.append(sample_max[i - 1] / blank_average[i - 1])
 
+        # pool average column
+        pool_avg.append(sum(pool_values) / len(pool_values))
+
+        # pool stdev column
+        pool_stdev.append(stdev(pool_values))
+
+        # pool %CV column
+        pool_cv.append(round(pool_stdev[i] / pool_avg[i] * 100, 2))
+
+        # clear lists for next iteration of loop
         blank_values.clear()
         sample_values.clear()
+        pool_values.clear()
 
+    # add columns to data frame
     data_frame['Blank Average'] = blank_average
     data_frame['Sample Average'] = sample_avg
     data_frame['Sample Max'] = sample_max
     data_frame['Fold 2'] = fold2
     data_frame['Sample stdev'] = sample_stdev
-    data_frame['%CV'] = sample_cv
+    data_frame['Sample %CV'] = sample_cv
+    data_frame['Pool stdev'] = pool_stdev
+    data_frame['Pool %CV'] = pool_cv
 
 
 def create_to_be_processed_txt(
@@ -197,15 +231,42 @@ def create_to_be_processed_txt(
 
     """
 
+    # concatenate data frames together
     to_be_processed = pd.concat([internal_standards, knowns, unknowns])
 
+    # extract sample information name for use in file name
+    sample_information_name = extract_sample_information(samples)
+
+    # write current concatenated data frame to file
+    reduced_path = os.path.join(
+        os.path.dirname(file_location),
+        sample_information_name +
+        '_reduced.txt')
+
+    # make sure reduced_path file does not already exist
+    assert(not os.path.exists(reduced_path)
+           ), f"{reduced_path} already exists"
+
+    # save file as .txt for user review
+    to_be_processed.to_csv(
+        reduced_path,
+        header=True,
+        index=False,
+        sep='\t',
+        mode='a')
+
+    print(f"file saved: {reduced_path}")
+
+    # delete extraneous columns to put in format for MS-FLO
     delete_columns = [
         "Blank Average",
         "Sample Average",
         "Sample Max",
         "Fold 2",
         "Sample stdev",
-        "%CV"]
+        "Sample %CV",
+        "Pool stdev",
+        "Pool %CV"]
 
     for column in to_be_processed:
 
@@ -213,9 +274,7 @@ def create_to_be_processed_txt(
 
             to_be_processed.drop(column, axis=1, inplace=True)
 
-    # create sample name to go in sample location as original .txt file put
-    # into the program
-    sample_information_name = extract_sample_information(samples)
+    # create to_be_processed path name
     to_be_processed_path = os.path.join(
         os.path.dirname(file_location),
         sample_information_name +

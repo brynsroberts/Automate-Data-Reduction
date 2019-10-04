@@ -72,7 +72,7 @@ if __name__ == "__main__":
     reduce.filter_samples(df, blanks, biorecs, pools, samples)
 
     # add reduction columns
-    reduce.add_reduction_columns(df, blanks, samples)
+    reduce.add_reduction_columns(df, blanks, samples, pools)
 
     # create data frame for each type of annotated feature
     internal_standards = df[(df['Type'] == 'iSTD')]
@@ -80,15 +80,27 @@ if __name__ == "__main__":
     unknowns = df[(df['Type'] == 'unknown')]
 
     # reduce annotated features
+    knowns_before_reduction = len(knowns.index)
     knowns = knowns[(knowns['Fold 2'] > known_fold2)]
     knowns = knowns[(knowns['Sample Max'] > known_sample_max)]
 
     # reduce unknowns
+    unknowns_before_reduction = len(unknowns.index)
     unknowns = unknowns[(unknowns['Fold 2'] > unknown_fold2)]
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
 
-    # make figure
-    report.standards_dot_plot_cv(internal_standards)
+    # len of knowns and unknowns after reduction
+    knowns_after_reduction = len(knowns.index)
+    unknowns_after_reduction = len(unknowns.index)
+
+    # make report figures
+    report.number_of_features_changed(
+        knowns_before_reduction,
+        knowns_after_reduction,
+        unknowns_before_reduction,
+        unknowns_after_reduction)
+    report.chart_feature_cv(internal_standards)
+    report.chart_feature_cv(knowns)
 
     # create text file of all reduced feature for ms-flo analysis
     file_path = reduce.create_to_be_processed_txt(
