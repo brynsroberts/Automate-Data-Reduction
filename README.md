@@ -7,7 +7,7 @@
 ## Description: 
 
 Automate data reduction for Metabolomics untargeted LC-MS data and put reduced dataset through online MS-FLO software.  Produces
-charts to qc data quality.
+tables to check data quality.
 
 ## Getting Started
 
