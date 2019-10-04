@@ -51,7 +51,7 @@ http://carrot.metabolomics.us/lcms
 * ex: Bryan001_MX123456_posHILIC_ABA-01
 ```
 
-### Runing Script
+### Running Script
 
 * Run process.py
 
