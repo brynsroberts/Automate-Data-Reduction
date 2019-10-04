@@ -7,6 +7,7 @@ __author__ = "Bryan Roberts"
 import reduce  # local source
 from msflo import msflo
 import instruments
+import report
 
 if __name__ == "__main__":
 
@@ -85,6 +86,9 @@ if __name__ == "__main__":
     # reduce unknowns
     unknowns = unknowns[(unknowns['Fold 2'] > unknown_fold2)]
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
+
+    # make figure
+    report.standards_dot_plot_cv(internal_standards)
 
     # create text file of all reduced feature for ms-flo analysis
     file_path = reduce.create_to_be_processed_txt(

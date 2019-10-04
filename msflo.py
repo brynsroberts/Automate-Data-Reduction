@@ -57,11 +57,11 @@ def msflo(file_path):
 
     dup_rt_tolerance = browser.find_element_by_xpath(
         "/html/body/div/div/form/div[5]/div[7]/input")
-    dup_rt_tolerance.send_keys('0.005')
+    dup_rt_tolerance.send_keys('0.05')
 
     dup_mz_tolerance = browser.find_element_by_xpath(
         "/html/body/div/div/form/div[5]/div[6]/input")
-    dup_mz_tolerance.send_keys('0.05')
+    dup_mz_tolerance.send_keys('0.005')
 
     dup_min_peak_match_ratio = browser.find_element_by_xpath(
         "/html/body/div/div/form/div[5]/div[9]/input")
