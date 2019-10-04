@@ -27,12 +27,24 @@ if __name__ == "__main__":
     if not (os.path.exists(CHROME_DRIVER_DIRECTORY)):
 
         CHROME_DRIVER_DIRECTORY = input("Enter full directory for Chrome driver: ")
+
+        # if user put in quotation marks, delete quotation marks
+        if CHROME_DRIVER_DIRECTORY[0] == "\"":
+
+            CHROME_DRIVER_DIRECTORY = CHROME_DRIVER_DIRECTORY[1:len(CHROME_DRIVER_DIRECTORY) - 1]
+        
         assert(os.path.exists(CHROME_DRIVER_DIRECTORY))
 
     # get location of Downloads directory if default is not correct
     if not (os.path.exists(DOWNLOADS_DIRECTORY)):
 
         DOWNLOADS_DIRECTORY = input("Enter full directory for Downloads folder: ")
+
+        # if user put in quotation marks, delete quotation marks
+        if DOWNLOADS_DIRECTORY[0] == "\"":
+
+            DOWNLOADS_DIRECTORY = DOWNLOADS_DIRECTORY[1:len(DOWNLOADS_DIRECTORY) - 1]
+        
         assert(os.path.exists(DOWNLOADS_DIRECTORY))
 
     # ask if user would like to input reduction numbers of use default values

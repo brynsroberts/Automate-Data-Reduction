@@ -61,6 +61,18 @@ http://carrot.metabolomics.us/lcms
 Enter full file directory including file: "C:\Data\Height_0_20198231532.txt"
 ```
 
+* If default value of Chrome driver not in process.py, paste full directory including driver file
+ 
+ ```
+Enter full directory for Chrome driver: C:\Users\\Bryan\Desktop\chromedriver.exe
+```
+
+* If default value of Downloads directory not in process.py, paste full directory
+
+ ```
+Enter full directory for Downloads folder: C:\Users\Bryan\Downloads
+```
+
 * Select to use default values or user defined parameters for data reduction.  Parameters include
 
 ```
