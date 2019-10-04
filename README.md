@@ -6,7 +6,8 @@
 
 ## Description: 
 
-Automate data reduction for Metabolomics untargeted LC-MS data and put reduced dataset through online MS-flo software.
+Automate data reduction for Metabolomics untargeted LC-MS data and put reduced dataset through online MS-FLO software.  Produces
+charts to qc data quality.
 
 ## Getting Started
 
@@ -70,7 +71,10 @@ Enter full file directory including file: "C:\Data\Height_0_20198231532.txt"
 ```
 ### Output
 
-* Script will create new reduced .txt file and MS-Flo files in same directory as original MS-Dial alignment file.
+* Script will create new reduced and toBeProcessed .txt file and MS-FLO files in same directory as original MS-Dial alignment file.
+* Chart displaying number of known and unknown features before and after reduction
+* Chart displaying %CV of internal standards in samples and pool qc samples
+* Chart displaying %CV of known features in samples and pool qc samples
 
 ## Sources
 
