@@ -51,9 +51,9 @@ def number_of_features_changed(
 
     """
 
-    feature_type = ['known', 'unknown']
-    before_reduction = [known_before, unknown_before]
-    after_reduction = [known_after, unknown_after]
+    feature_type = ['Known', 'Unknown', 'Total']
+    before_reduction = [known_before, unknown_before, known_before + unknown_before]
+    after_reduction = [known_after, unknown_after, known_after + unknown_after]
 
     fig = go.Figure(
         data=[
