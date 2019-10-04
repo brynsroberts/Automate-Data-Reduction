@@ -25,13 +25,13 @@ pip install -r requirements.txt
 https://chromedriver.chromium.org/downloads
 ```
 
-* Open msflo.py in a text editor and paste the full directory of chromedriver.exe into CHROME_DRIVER_DIRECTORY
+* Open process.py in a text editor and paste the full directory of chromedriver.exe into CHROME_DRIVER_DIRECTORY or input during runtime
 
 ```
 CHROME_DRIVER_DIRECTORY = "C:\\Users\\Bryan\\Desktop\\chromedriver.exe"
 ```
 
-* Also in msflo.py, paste the full directory of local Downloads folder in DOWNLOADS_DIRECTORY
+* Also in process.py, paste the full directory of local Downloads folder in DOWNLOADS_DIRECTORY or input during runtime
 
 ```
 DOWNLOADS_DIRECTORY = "C:\\Users\\Bryan\\Downloads"
