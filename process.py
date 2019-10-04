@@ -4,6 +4,8 @@
 
 __author__ = "Bryan Roberts"
 
+import os
+
 import reduce  # local source
 from msflo import msflo
 import instruments
@@ -16,6 +18,22 @@ if __name__ == "__main__":
 
     # validate file location input
     file_location = reduce.validate_file_location(file_location)
+
+    # default values for user directory locations
+    CHROME_DRIVER_DIRECTORY = ""
+    DOWNLOADS_DIRECTORY = ""
+
+    # get locations of Chrome Driver if default is not correct
+    if not (os.path.exists(CHROME_DRIVER_DIRECTORY)):
+
+        CHROME_DRIVER_DIRECTORY = input("Enter full directory for Chrome driver: ")
+        assert(os.path.exists(CHROME_DRIVER_DIRECTORY))
+
+    # get location of Downloads directory if default is not correct
+    if not (os.path.exists(DOWNLOADS_DIRECTORY)):
+
+        DOWNLOADS_DIRECTORY = input("Enter full directory for Downloads folder: ")
+        assert(os.path.exists(DOWNLOADS_DIRECTORY))
 
     # ask if user would like to input reduction numbers of use default values
     if instruments.user_specified_values():
@@ -107,4 +125,4 @@ if __name__ == "__main__":
         internal_standards, knowns, unknowns, file_location, samples)
 
     # perform online ms-flo analysis
-    msflo(file_path)
+    msflo(file_path, CHROME_DRIVER_DIRECTORY, DOWNLOADS_DIRECTORY)

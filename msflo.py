@@ -11,19 +11,18 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 
-def msflo(file_path):
+def msflo(file_path, CHROME_DRIVER_DIRECTORY, DOWNLOADS_DIRECTORY):
     """ puts file through online Fiehn lab ms-flo software
 
     Parameters:
             file_path (str): Full directory path of file to be analyzed
+            CHROME_DRIVER_DIRECTORY (str): Full directory path to Chrome driver
+            DOWNLOADS_DIRECTORY (str): Full directory path to downloads folder
 
     Returns:
             None
 
     """
-
-    CHROME_DRIVER_DIRECTORY = "/Users/newuser/Desktop/chromedriver"
-    DOWNLOADS_DIRECTORY = "/Users/newuser/Downloads"
 
     # open ms-flo in chrome browser
     browser = webdriver.Chrome(
