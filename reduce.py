@@ -184,7 +184,7 @@ def add_reduction_columns(data_frame, blanks, samples, pools):
         sample_cv.append(round((sample_stdev[i] / sample_avg[i]) * 100, 2))
 
         # Fold 2 column
-        fold2.append(sample_max[i - 1] / blank_average[i - 1])
+        fold2.append(sample_max[i] / blank_average[i])
 
         # pool average column
         pool_avg.append(sum(pool_values) / len(pool_values))
