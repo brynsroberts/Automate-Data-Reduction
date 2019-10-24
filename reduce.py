@@ -41,10 +41,11 @@ def filter_file(file_location):
         "INCHIKEY",
         "MSI level",
         "Reverse dot product",
-        "Spectrum reference file name"]
+        "Spectrum reference file name",
+        "MS/MS spectrum"]
 
     # delete columns not needed for data curration
-    for column in data_frame.columns[1: msms_column + 1]:
+    for column in data_frame.columns[: msms_column + 1]:
 
         if column not in columns_to_keep:
 
@@ -184,7 +185,7 @@ def add_reduction_columns(data_frame, blanks, samples, pools):
         sample_cv.append(round((sample_stdev[i] / sample_avg[i]) * 100, 2))
 
         # Fold 2 column
-        fold2.append(sample_max[i] / blank_average[i])
+        fold2.append(sample_max[i - 1] / blank_average[i - 1])
 
         # pool average column
         pool_avg.append(sum(pool_values) / len(pool_values))
