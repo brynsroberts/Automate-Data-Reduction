@@ -7,6 +7,7 @@ __author__ = "Bryan Roberts"
 import os
 import time
 import zipfile
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -148,3 +149,48 @@ def create_download_file_path(file_path, download_file_path):
            ), f"{final_download_path} already exists"
 
     return final_download_path
+
+def create_excel_file(file_path):
+    """ updates values from msflo output and creates excel file
+
+    Parameters:
+            file_path (str): Full directory path of file to be analyzed
+
+    Returns:
+            None
+
+    """
+
+    # name of processed file from msflo
+    processed_name = file_path[:len(file_path) - 4] + "_processed.txt"
+    
+    # name of to be created excel file
+    excel_name = processed_name[:len(processed_name) - 28] + "_processed.xlsx"
+
+    # read in msflo processed file
+    file = pd.read_csv(processed_name, sep='\t')
+    
+    # update name to get rid of "_" characters from duplicate combination
+    new_name = [name[:-1] if type(name) == str and name[-1] == "_" else name for name in file['Metabolite name']]
+    new_name = [name[1:] if type(name) == str and len(name) > 0 and name[0] == "_" else name for name in new_name]
+    file['Metabolite name'] = new_name
+    
+    # determine mode of data analysis
+    mode = file_path.split("_")[2][:3]
+
+    # change blank species to [M+H]+ if no value
+    if mode == "pos":
+        
+        species = ["[M+H]+" if type(species) != str else species for species in file['Adduct type']]
+    
+    # change blank species to [M-H]- if no value
+    elif mode == "neg":
+        
+        species = ["[M-H]-" if type(species) != str else species for species in file['Adduct type']]
+    
+    # update data frame
+    file['Adduct type'] = species
+    
+    # create excel file
+    file.to_excel(excel_name, index=False)
+    print(f"file saved: {excel_name}")
