@@ -104,6 +104,54 @@ if __name__ == "__main__":
     # add reduction columns
     reduce.add_reduction_columns(df, blanks, samples, pools)
 
+    # update Metabolite name, InChiKey, Species
+    names = df['Metabolite name'].str.split("[", n = 1, expand = True)
+    inchikey = names[1].str.split("_", n = 1, expand = True)
+    species = inchikey[0]
+    inchikey = inchikey[1]
+    name = names[0]
+    
+    #update inchikey
+    inchi = []
+    for mzrt, msdial in zip(inchikey, df['INCHIKEY']):
+    
+        if mzrt != None:
+        
+            inchi.append(mzrt)
+        
+        else:
+        
+            inchi.append(msdial)
+    
+    #update species
+    adduct = []        
+    for mzrt, msdial in zip(species, df['Adduct type']):
+    
+        if mzrt != None:
+        
+            adduct.append("[" + mzrt)
+        
+        else:
+        
+            adduct.append(msdial)
+            
+    for i in range(len(name)):
+    
+        if name[i][-1] == "_":
+            
+            name[i] = name[i][:-1]
+            
+        if name[i][-2] == ";":
+            
+            name[i] = name[i][:-2]
+            
+     
+    # update values in columns
+    df['INCHIKEY'] = inchi
+    df['Metabolite name'] = name
+    df['Adduct type'] = adduct
+    df.sort_values(by=['Metabolite name'], inplace=True)
+
     # create data frame for each type of annotated feature
     internal_standards = df[(df['Type'] == 'iSTD')]
     knowns = df[(df['Type'] == 'known')]
@@ -113,11 +161,14 @@ if __name__ == "__main__":
     knowns_before_reduction = len(knowns.index)
     knowns = knowns[(knowns['Fold 2'] > known_fold2)]
     knowns = knowns[(knowns['Sample Max'] > known_sample_max)]
-
+    
     # reduce unknowns
     unknowns_before_reduction = len(unknowns.index)
     unknowns = unknowns[(unknowns['Fold 2'] > unknown_fold2)]
     unknowns = unknowns[(unknowns['Sample Average'] > unknown_sample_average)]
+    unknowns['Metabolite name'] = ""
+    unknowns['INCHIKEY'] = ""
+    unknowns['Adduct type'] = ""
 
     # len of knowns and unknowns after reduction
     knowns_after_reduction = len(knowns.index)
@@ -131,7 +182,7 @@ if __name__ == "__main__":
         unknowns_after_reduction)
     report.chart_feature_cv(internal_standards)
     report.chart_feature_cv(knowns)
-
+    
     # create text file of all reduced feature for ms-flo analysis
     file_path = reduce.create_to_be_processed_txt(
         internal_standards, knowns, unknowns, file_location, samples)
