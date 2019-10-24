@@ -41,10 +41,11 @@ def filter_file(file_location):
         "INCHIKEY",
         "MSI level",
         "Reverse dot product",
-        "Spectrum reference file name"]
+        "Spectrum reference file name",
+        "MS/MS spectrum"]
 
     # delete columns not needed for data curration
-    for column in data_frame.columns[1: msms_column + 1]:
+    for column in data_frame.columns[: msms_column + 1]:
 
         if column not in columns_to_keep:
 
