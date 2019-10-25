@@ -7,7 +7,7 @@
 ## Description: 
 
 Automate data reduction for Metabolomics untargeted LC-MS data and put reduced dataset through online MS-FLO software.  Produces
-tables to check data quality.
+tables to check data quality.  Currates MS-Flo output to be used with single-point iSTD quant scripts after data curation.
 
 ## Getting Started
 
@@ -88,6 +88,7 @@ Enter full directory for Downloads folder: C:\Users\Bryan\Downloads
 * Table displaying number of known and unknown features before and after reduction
 * Table displaying %CV of internal standards in samples and pool qc samples
 * Table displaying %CV of known features in samples and pool qc samples
+* New .xlsx file of curated ms-flo output ready for single point quant script
 
 ## Sources
 
