@@ -195,8 +195,5 @@ if __name__ == "__main__":
 
     # create single point quant file 
     msflo.create_single_point_file(file_path, after_msflo_file)
-<<<<<<< HEAD
 
 
-=======
->>>>>>> e47c79118a7dd658a32a38ca4751a9d534e48108
