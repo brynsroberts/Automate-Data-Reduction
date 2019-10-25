@@ -197,6 +197,8 @@ def create_single_point_file (file_path, file):
     # set adducts dictionary depending on method being analyzed
     if "posCSH" in file_path:
         
+        mode = "_posCSH"
+
         adducts = {'CE': '[M+Na]+',
         'Cer': '[M+H]+',
         'Cholesterol': '[M+H-H2O]+',
@@ -209,6 +211,8 @@ def create_single_point_file (file_path, file):
         'TG': '[M+NH4]+'}
         
     elif "negCSH" in file_path:
+
+        mode = "_negCSH"
     
         adducts = {"FA": "[M-H]-",
 
@@ -224,6 +228,8 @@ def create_single_point_file (file_path, file):
         "PS": "[M-H]-"}
         
     elif "posHILIC" in file_path:
+
+        mode = "_posHILIC"
         
         adducts = {}
 
@@ -270,7 +276,7 @@ def create_single_point_file (file_path, file):
             drop.append(False)
 
     # create new file path name   
-    file_name = file_path[:len(file_path) - 18] + "_iSTD_SinglePoint.xlsx"
+    file_name = file_path[:len(file_path) - 18] + mode + "_iSTD_SinglePoint.xlsx"
 
     # add iSTD match and drop to data_frame     
     all_knowns.insert(9, 'iSTD Type', iSTD_match)
