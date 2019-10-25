@@ -7,7 +7,7 @@ __author__ = "Bryan Roberts"
 import os
 
 import reduce  # local source
-from msflo import msflo
+import msflo
 import instruments
 import report
 
@@ -188,4 +188,12 @@ if __name__ == "__main__":
         internal_standards, knowns, unknowns, file_location, samples)
 
     # perform online ms-flo analysis
-    msflo(file_path, CHROME_DRIVER_DIRECTORY, DOWNLOADS_DIRECTORY)
+    msflo.msflo(file_path, CHROME_DRIVER_DIRECTORY, DOWNLOADS_DIRECTORY)
+
+    # creat excel file for manual curation
+    after_msflo_file = msflo.create_excel_file(file_path)
+
+    # create single point quant file 
+    msflo.create_single_point_file(file_path, after_msflo_file)
+
+
