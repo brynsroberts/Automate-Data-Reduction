@@ -217,7 +217,37 @@ def create_single_point_file (file_path, file):
         
     elif "posHILIC" in file_path:
         
-        adducts = {}
+        adducts = {"Creatinine": "[M+H]+",
+                    "Choline": "[M]+",
+                    "TMAO": "[M+H]+",
+                    "1-Methylnicotinamide": "[M]+",
+                    "Tryptophan": "[M+H]+",
+                    "Phenylalanine": "[M+H]+",
+                    "Val-Tyr-Val": "[M+H]+",
+                    "Leucine": "[M+H]+",
+                    "ACar(2:0)": "[M+H]+",
+                    "Isoleucine": "[M+H]+",
+                    "Betaine": "[M+H]+",
+                    "Histamine, N-methyl-": "[M+H]+",
+                    "Methionine": "[M+H]+",
+                    "Tyrosine": "[M+H]+",
+                    "Valine": "[M+H]+",
+                    "Proline": "[M+H]+",
+                    "Carnitine": "[M+H]+",
+                    "Alanine": "[M+H]+",
+                    "Creatine": "[M+H]+",
+                    "Alanine": "[M+H]+",
+                    "Threonine": "[M+H]+",
+                    "Glutamine": "[M+H]+",
+                    "Asparagine": "[M+H]+",
+                    "Serine": "[M+H]+",
+                    "Glutamic": "[M+H]+",
+                    "Aspartic": "[M+H]+",
+                    "Histidine": "[M+H]+",
+                    "Arginine": "[M+H]+",
+                    "Lysine": "[M+H]+",
+                    "Ornithine": "[M+H]+",
+                    "Cystine": "[M+H]+"}
 
     # generated to hold class number pairs
     standards = {}
