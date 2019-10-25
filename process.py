@@ -189,8 +189,9 @@ if __name__ == "__main__":
 
     # perform online ms-flo analysis
     msflo.msflo(file_path, CHROME_DRIVER_DIRECTORY, DOWNLOADS_DIRECTORY)
-    
-    # create currated excel sheet from msflo output
-    msflo.create_excel_file(file_path)
 
-    
+    # creat excel file for manual curation
+    after_msflo_file = msflo.create_excel_file(file_path)
+
+    # create single point quant file 
+    msflo.create_single_point_file(file_path, after_msflo_file)
