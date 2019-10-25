@@ -269,7 +269,7 @@ def create_single_point_file (file_path, file):
             drop.append(False)
 
     # create new file path name   
-    file_name = file_path[:len(file_path) - 18] + mode + "_iSTD_SinglePoint.xlsx"
+    file_name = file_path[:len(file_path) - 18] + "_iSTD_SinglePoint.xlsx"
 
     # add iSTD match and drop to data_frame     
     all_knowns.insert(9, 'iSTD Type', iSTD_match)
