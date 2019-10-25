@@ -199,7 +199,7 @@ def create_single_point_file (file_path, file):
         'PC': '[M+H]+',
         'PE': '[M+H]+',
         'SM': '[M+H]+',
-        'TG': '[M+NH4]+'}
+        'TAG': '[M+NH4]+'}
         
     elif "negCSH" in file_path:
     
@@ -217,37 +217,36 @@ def create_single_point_file (file_path, file):
         
     elif "posHILIC" in file_path:
         
-        adducts = {"Creatinine": "[M+H]+",
-                    "Choline": "[M]+",
-                    "TMAO": "[M+H]+",
-                    "1-Methylnicotinamide": "[M]+",
-                    "Tryptophan": "[M+H]+",
-                    "Phenylalanine": "[M+H]+",
+        adducts = {"D3-Creatinine": "[M+H]+",
+                    "D9-Choline": "[M]+",
+                    "D9-TMAO": "[M+H]+",
+                    "D3-1-Methylnicotinamide": "[M]+",
+                    "D8-Tryptophan": "[M+H]+",
+                    "D8-Phenylalanine": "[M+H]+",
                     "Val-Tyr-Val": "[M+H]+",
-                    "Leucine": "[M+H]+",
-                    "ACar(2:0)": "[M+H]+",
-                    "Isoleucine": "[M+H]+",
-                    "Betaine": "[M+H]+",
-                    "Histamine, N-methyl-": "[M+H]+",
-                    "Methionine": "[M+H]+",
-                    "Tyrosine": "[M+H]+",
-                    "Valine": "[M+H]+",
-                    "Proline": "[M+H]+",
-                    "Carnitine": "[M+H]+",
-                    "Alanine": "[M+H]+",
-                    "Creatine": "[M+H]+",
-                    "Alanine": "[M+H]+",
-                    "Threonine": "[M+H]+",
-                    "Glutamine": "[M+H]+",
-                    "Asparagine": "[M+H]+",
-                    "Serine": "[M+H]+",
-                    "Glutamic": "[M+H]+",
-                    "Aspartic": "[M+H]+",
-                    "Histidine": "[M+H]+",
-                    "Arginine": "[M+H]+",
-                    "Lysine": "[M+H]+",
-                    "Ornithine": "[M+H]+",
-                    "Cystine": "[M+H]+"}
+                    "D10-Leucine": "[M+H]+",
+                    "D3-ACar(2:0)": "[M+H]+",
+                    "D10-Isoleucine": "[M+H]+",
+                    "D9-Betaine": "[M+H]+",
+                    "D3-Histamine,": "[M+H]+",
+                    "D8-Methionine": "[M+H]+",
+                    "D7-Tyrosine": "[M+H]+",
+                    "D8-Valine": "[M+H]+",
+                    "D7-Proline": "[M+H]+",
+                    "D3-L-Carnitine": "[M+H]+",
+                    "D4-Alanine": "[M+H]+",
+                    "D3-Creatine": "[M+H]+",
+                    "D5-Threonine": "[M+H]+",
+                    "D5-L-Glutamine": "[M+H]+",
+                    "D3-Asparagine": "[M+H]+",
+                    "D3-Serine": "[M+H]+",
+                    "D5-Glutamic": "[M+H]+",
+                    "D3-Aspartic": "[M+H]+",
+                    "D5-Histidine": "[M+H]+",
+                    "D7-Arginine": "[M+H]+",
+                    "D8-Lysine": "[M+H]+",
+                    "D2-Ornithine": "[M+H]+",
+                    "D4-Cystine": "[M+H]+"}
 
     # generated to hold class number pairs
     standards = {}
@@ -260,13 +259,13 @@ def create_single_point_file (file_path, file):
 
     i = 1
 
-    # generate standards dictionary
+    # generate standards dictionary for CSH methods
     for name, adduct in zip(file['Metabolite name'], file['Adduct type']):
     
         try:
-
+            
             name = name.split()[0]
-    
+
             if name[:2] == "1_":
         
                 name = name.split("_")[1]
@@ -275,15 +274,29 @@ def create_single_point_file (file_path, file):
 
             name = ""
     
-        if name not in standards:
+        if "CSH" in file_path and name not in standards:
         
             standards[name] = i
             i += 1
 
+        elif "HILIC" in file_path:
+
+            for key in adducts.keys():
+
+                if name in key and name != "":
+
+                    name = key
+                    break
+
+            if name not in standards:
+
+                standards[name] = i
+                i += 1
+
         iSTD_match.append(standards[name])
     
         # determine if feature will be dropped from data_frame
-        if name in adducts:
+        if name in adducts and name != "":
         
             if adducts[name] in adduct:
         
