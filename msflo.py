@@ -196,8 +196,6 @@ def create_single_point_file (file_path, file):
     
     # set adducts dictionary depending on method being analyzed
     if "posCSH" in file_path:
-        
-        mode = "_posCSH"
 
         adducts = {'CE': '[M+Na]+',
         'Cer': '[M+H]+',
@@ -211,25 +209,20 @@ def create_single_point_file (file_path, file):
         'TG': '[M+NH4]+'}
         
     elif "negCSH" in file_path:
-
-        mode = "_negCSH"
     
         adducts = {"FA": "[M-H]-",
-
         "Ceramide": "[M+Cl]-",
         "PG": "[M-H]-",
-        "LPC": "[M+HAc-H]-",
+        "LPC": "[M+CH3COO]-",
         "LPE": "[M-H]-",
-        "PC": "[M+HAc-H]-",
+        "PC": "[M+CH3COO]-",
         "PE": "[M-H]-",
-        "SM": "[M+HAc-H]-",
+        "SM": "[M+CH3COO]-",
         "5-PAHSA-d9": "[M-H]-",
         "PI": "[M-H]-",
         "PS": "[M-H]-"}
         
     elif "posHILIC" in file_path:
-
-        mode = "_posHILIC"
         
         adducts = {}
 
