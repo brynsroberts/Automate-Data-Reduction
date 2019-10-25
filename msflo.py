@@ -256,10 +256,9 @@ def create_single_point_file (file_path, file):
 
     # set to true of false if adduct and species are not in standards
     drop = []
-
-    i = 1
-
+    
     # generate standards dictionary for CSH methods
+    i = 1
     for name, adduct in zip(file['Metabolite name'], file['Adduct type']):
     
         try:
@@ -278,7 +277,8 @@ def create_single_point_file (file_path, file):
         
             standards[name] = i
             i += 1
-
+        
+        #generate standards dictionary for HILIC method
         elif "HILIC" in file_path:
 
             for key in adducts.keys():
@@ -292,7 +292,7 @@ def create_single_point_file (file_path, file):
 
                 standards[name] = i
                 i += 1
-
+                
         iSTD_match.append(standards[name])
     
         # determine if feature will be dropped from data_frame
