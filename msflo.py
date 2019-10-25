@@ -148,9 +148,6 @@ def create_excel_file(file_path):
 
     # name of processed file from msflo
     processed_name = file_path[:len(file_path) - 4] + "_processed.txt"
-    
-    # name of to be created excel file
-    excel_name = processed_name[:len(processed_name) - 28] + "_processed.xlsx"
 
     # read in msflo processed file
     file = pd.read_csv(processed_name, sep='\t')
@@ -175,10 +172,6 @@ def create_excel_file(file_path):
     
     # update data frame
     file['Adduct type'] = species
-    
-    # create excel file
-    file.to_excel(excel_name, index=False)
-    print(f"file saved: {excel_name}")
 
     return file
 
@@ -192,7 +185,7 @@ def create_single_point_file (file_path, file):
     """
 
     # create data frame exculding unknowns
-    all_knowns = file[(file['Type'] == 'iSTD') | (file['Type'] == 'known')]
+    # file = file[(file['Type'] == 'iSTD') | (file['Type'] == 'known')]
     
     # set adducts dictionary depending on method being analyzed
     if "posCSH" in file_path:
@@ -238,19 +231,25 @@ def create_single_point_file (file_path, file):
     i = 1
 
     # generate standards dictionary
-    for name, adduct in zip(all_knowns['Metabolite name'], all_knowns['Adduct type']):
+    for name, adduct in zip(file['Metabolite name'], file['Adduct type']):
     
-        name = name.split()[0]
+        try:
+
+            name = name.split()[0]
     
-        if name[:2] == "1_":
+            if name[:2] == "1_":
         
-            name = name.split("_")[1]
+                name = name.split("_")[1]
+
+        except:
+
+            name = ""
     
         if name not in standards:
         
             standards[name] = i
             i += 1
-    
+
         iSTD_match.append(standards[name])
     
         # determine if feature will be dropped from data_frame
@@ -269,15 +268,12 @@ def create_single_point_file (file_path, file):
             drop.append(False)
 
     # create new file path name   
-    file_name = file_path[:len(file_path) - 18] + "_iSTD_SinglePoint.xlsx"
+    file_name = file_path[:len(file_path) - 18] + "_processed.xlsx"
 
     # add iSTD match and drop to data_frame     
-    all_knowns.insert(9, 'iSTD Type', iSTD_match)
-    all_knowns.insert(8, 'Drop', drop)
-
-    # only keep True drop values
-    all_knowns = all_knowns[(all_knowns["Drop"] == True)]
+    file.insert(9, 'iSTD Type', iSTD_match)
+    file.insert(8, 'Keep for iSTD Single Point Quant', drop)
 
     # create excel file and output to console completion of task
-    all_knowns.to_excel(file_name, index=False)
+    file.to_excel(file_name, index=False)
     print(f"file saved: {file_name}")
