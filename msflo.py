@@ -256,7 +256,7 @@ def create_single_point_file (file_path, file):
         # determine if feature will be dropped from data_frame
         if name in adducts:
         
-            if adducts[name] == adduct:
+            if adducts[name] in adduct:
         
                 drop.append(True)
         
